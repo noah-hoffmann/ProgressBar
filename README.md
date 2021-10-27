@@ -26,3 +26,5 @@ with ProgressBar(estimate_time=True) as progress:
         progress.update((i + 1) / N)
 ```
 produces the following output:
+
+![Example gif](https://github.com/noah-hoffmann/ProgressBar/blob/main/example.gif)
