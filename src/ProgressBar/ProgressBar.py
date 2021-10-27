@@ -1,4 +1,4 @@
-from time import time
+import time
 
 
 class ProgressBar:
@@ -37,7 +37,7 @@ class ProgressBar:
         self.print_progress = print_progress
         # Decides if the remaining should be calculated
         self.estimate_time = estimate_time
-        self.last_time = time()
+        self.last_time = time.time()
         self.diff = 0
 
     def __str__(self):
@@ -47,8 +47,8 @@ class ProgressBar:
         if self.print_progress:
             bar += f" {self.progress:.0%}"
         if self.estimate_time:
-            dt = time() - self.last_time
-            self.last_time = time()
+            dt = time.time() - self.last_time
+            self.last_time = time.time()
             try:
                 speed = self.diff / dt
                 remaining = (1 - self.progress) / speed
@@ -69,31 +69,8 @@ class ProgressBar:
     def __enter__(self):
         self.update(0)
         if self.estimate_time:
-            self.last_time = time()
+            self.last_time = time.time()
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         print("")
-
-
-def framed(s: str):
-    return f"\033[51m{s}\033[54m"
-
-
-def main():
-    from time import sleep
-    from itertools import cycle
-    with ProgressBar(estimate_time=True) as progress:
-        N = 10
-        for i in range(N):
-            sleep(.1)
-            progress.update((i + 1) / N)
-    print(framed('End Test'))
-    test = cycle(['—', '\\', '|', '/'])
-    for i in test:
-        print('\r' + i, end="")
-        sleep(.5)
-
-
-if __name__ == '__main__':
-    main()
