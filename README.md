@@ -28,3 +28,5 @@ with ProgressBar(estimate_time=True) as progress:
 produces the following output:
 
 ![Example gif](https://github.com/noah-hoffmann/ProgressBar/blob/main/example.gif)
+
+Some example change
